@@ -1,3 +1,4 @@
+package JavaVersion;
 public class Entry {
     String date;
     String type;

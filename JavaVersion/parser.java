@@ -1,25 +1,11 @@
+package JavaVersion;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 
-
-
 class parser {
-    public static void main(String[] args) {
-        if(args.length < 1) {
-            System.out.println("Expected atleast 1 value, the name of the csv file");
-            return;
-        }
-
-        String fileString = args[0];
-        System.out.println(fileString);
-
-        parseCSV(fileString);
-        
-    }
-
-    public static void parseCSV(String file) {
+    public void parseCSV(String file) {
         String line;
         String limiter = ",";
         int max = 9;
@@ -38,8 +24,6 @@ class parser {
                     value = value.replace("$", "");
                     value = value.replace("(","");
                     value = value.replace(")", "");
-                    // value.replaceAll("(", "");
-                    // value.replaceAll(")", "");
 
                     if (now == 0) { //date
                         entry.date = value;
@@ -66,6 +50,7 @@ class parser {
                     //restart now to 0 since new entry
                     if (now >= max) {
                         entry.printString();
+                        outputSheets(entry);
                         entry.reset();
                         now = 0;
                     }
@@ -79,5 +64,9 @@ class parser {
 
     }
 
+    public void outputSheets(Entry entry) {
 
+
+
+    }
 }
