@@ -19,5 +19,6 @@ public class Entry {
         this.amount = "";
         this.price = "";
         this.dividend = "";
+        this.split = "1";
     }
 }
