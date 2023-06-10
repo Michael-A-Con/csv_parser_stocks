@@ -30,6 +30,17 @@ class parser {
             while ((line = br.readLine()) != null) {
                 String[] data = line.split(limiter);
                 for (String value : data) {
+                    if (value.contains("CUSIP") || value.contains("order batcher")) {
+                        continue;
+                    }
+
+                    value = value.replaceAll("\"", "");
+                    value = value.replace("$", "");
+                    value = value.replace("(","");
+                    value = value.replace(")", "");
+                    // value.replaceAll("(", "");
+                    // value.replaceAll(")", "");
+
                     if (now == 0) { //date
                         entry.date = value;
                     } else if (now == 3) { //stock
@@ -39,12 +50,15 @@ class parser {
                     } else if (now == 7) { //price 
                         entry.price = value;
                     } else if (now == 8) { //amount
-                        if (entry.type == "Buy") { //if its a buy
+                        if (entry.type.contains("Buy")) { //if its a buy
                             entry.amount = value;
                             entry.dividend = "0";
-                        } else if (entry.type == "CDIV") { //if its a dividend 
+                        } else if (entry.type.contains("CDIV")) { //if its a dividend 
                             entry.amount = "0";
                             entry.dividend = value;
+                        } else if (entry.type.contains("ACH")) { //if its a dividend 
+                            entry.amount = value;
+                            entry.dividend = "0";
                         }
                     }
 
